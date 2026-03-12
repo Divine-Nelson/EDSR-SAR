@@ -1,0 +1,14 @@
+__pycache__/
+sar_project/
+
+# Model checkpoints / weights
+*.pt
+*.pth
+*.ckpt
+*.h5
+*.onnx
+
+# Large SAR images
+*.tif
+*.tiff
+*.img
