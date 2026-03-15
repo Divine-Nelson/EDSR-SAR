@@ -10,6 +10,8 @@ from rasterio.windows import Window
 
 from datasets import SARSuperResolutionDataset
 from models.edsr import EDSR
+from models.srcnn import SRCNN
+from models.res_srcnn import ResidualSRCNN
 
 
 def main():
@@ -34,7 +36,7 @@ def main():
         pin_memory=True
     )
 
-    model = EDSR().to(device)
+    model = ResidualSRCNN().to(device)
     
     
     criterion = nn.SmoothL1Loss()
@@ -172,10 +174,10 @@ def main():
 
             torch.save(
                 model.state_dict(),
-                "models/best_edsr_sar.pth"
+                "models/best_res_srcnn_sar.pth"
             )
 
-    torch.save(model.state_dict(), "models/edsr_sar_final.pth")
+    torch.save(model.state_dict(), "models/res_srcnn_sar_final.pth")
 
     # ---------------------------------
     # Plot curves

@@ -37,7 +37,8 @@ model.eval()
 # Load SAR scene
 # --------------------------------------------------
 
-with rasterio.open("data/raw_sar/scene20.tif") as src:
+with rasterio.open("data/raw_sar/scene2.tif") as src:
+#with rasterio.open("data/test_sar/s1_7/scene500.tif") as src:
     image = src.read(1).astype(np.float32)
 
 h, w = image.shape
@@ -338,4 +339,26 @@ plt.colorbar()
 plt.axis("off")
 
 plt.tight_layout()
+plt.show()
+
+#Data visualization
+plt.figure(figsize=(12,4))
+
+plt.subplot(1,3,1)
+plt.title("Ground Truth")
+plt.imshow(ex_patch, cmap="gray")
+plt.axis("off")
+
+plt.subplot(1,3,2)
+plt.title("Low Resolution")
+plt.imshow(ex_lr, cmap="gray")
+plt.axis("off")
+
+plt.subplot(1,3,3)
+plt.title("High Resolution")
+plt.imshow(ex_sr, cmap="gray")
+plt.axis("off")
+
+plt.tight_layout()
+plt.savefig("visualization.png", dpi=300)
 plt.show()

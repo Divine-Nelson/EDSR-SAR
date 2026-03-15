@@ -1,14 +1,22 @@
-import matplotlib.patches as patches
-import cv2 as cv
+import rasterio
+import numpy as np
+import matplotlib.pyplot as plt
 
-image = cv.imread("data/results/Figure_4.png", cv.IMREAD_GRAYSCALE)
+image_path = "data/raw_sar/scene2.tif"   # change to one of your scenes
 
-cv.imshow("Original", image)
-cv.waitKey(0)
+with rasterio.open(image_path) as src:
+    img = src.read(1).astype("float32")
 
-zoom_x = 120
-zoom_y = 140
-zoom_size = 40
+#same preprocessing as dataset
+img = np.abs(img)
+img = np.log1p(img)
+img = img / 10.0
 
+plt.figure(figsize=(6,4))
+plt.hist(img.flatten(), bins=100)
+plt.title("Pixel Intensity Distribution in SAR Image")
+plt.xlabel("Pixel Intensity")
+plt.ylabel("Frequency")
 
-cv.destroyAllWindows()
+plt.tight_layout()
+plt.show()
